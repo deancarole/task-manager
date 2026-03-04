@@ -2,13 +2,14 @@ repos:
   # Vérifications générales
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
+
     hooks:
       - id: check-yaml
-      - id: check-json                 
+      - id: check-json
       - id: end-of-file-fixer
       - id: trailing-whitespace
-      - id: check-merge-conflict       
-      - id: detect-private-key         
+      - id: check-merge-conflict
+      - id: detect-private-key
 
   # Python - formatage
   - repo: https://github.com/psf/black
