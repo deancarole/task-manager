@@ -59,13 +59,13 @@ jobs:
       
       - name: Build docker image front
         uses: docker/build-push-action@v5
-          with:
-            context: ./frontend
-            push: true
-            tags: ${{ secrets.DOCKER_USERNAME }}/monapp-front:latest
-            build-args: |
-              HTTP_PROXY=${{ env.HTTP_PROXY }}
-              HTTPS_PROXY=${{ env.HTTPS_PROXY }}
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/monapp-front:latest
+          build-args: |
+            HTTP_PROXY=${{ env.HTTP_PROXY }}
+            HTTPS_PROXY=${{ env.HTTPS_PROXY }}
 
 
   
