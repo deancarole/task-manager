@@ -29,10 +29,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
     - name: Build docker image back
-      run: |
-        cd backend 
-        docker image build -t backend .
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/backend:latest
   
   build_front:
     name: Build and push front
@@ -42,12 +50,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build docker image front
-        run: |
-          cd frontend
-          docker image build -t frontend .
-  
+        uses: docker/build-push-action@v5
+          with:
+            context: ./frontend
+            push: true
+            tags: ${{ secrets.DOCKER_USERNAME }}/monapp-front:latest
+            build-args: |
+              HTTP_PROXY=${{ env.HTTP_PROXY }}
+              HTTPS_PROXY=${{ env.HTTPS_PROXY }}
 
 
   
